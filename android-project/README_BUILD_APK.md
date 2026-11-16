@@ -57,9 +57,8 @@
 - **Implemented in Source**: Material 3 dark theme UI, First-Time Setup, Expense/Income CRUD, Chronological `BalanceCalculator` + unit test, Room offline DB, WorkManager background sync & scheduled reminders, ML Kit OCR + `PdfRenderer` + duplicate guard, Official `<queries>` UPI detector + Share Intent receiver, Native `PdfDocument` statement exporter, 7 FCM notification channels + `QuickCategorizeReceiver`, Hardened `firestore.rules`, Signed release Gradle config.
 - **Requires Your Firebase Console Credentials**: Adding `app/google-services.json` + SHA-1 fingerprint for Android Google Sign-In and deploying `firebase-functions/` on Blaze plan if using scheduled server-side FCM pushes.
 
-## 6. Automated GitHub Actions Debug APK & Releases (`tech12345-code/Smart-Expenses`)
+## 6. Automated GitHub Actions Debug APK & Releases (`tech12345-code/Ca`)
 - **Workflow File**: `.github/workflows/android-debug-apk.yml`
-- **GitHub Actions Builds**: `https://github.com/tech12345-code/Smart-Expenses/actions/workflows/android-debug-apk.yml`
-- **Latest GitHub Release**: `https://github.com/tech12345-code/Smart-Expenses/releases/latest`
-- **Direct APK Download URL**: `https://github.com/tech12345-code/Smart-Expenses/releases/latest/download/SmartExpenseManager-debug.apk`
-
+- **GitHub Actions Builds**: `https://github.com/tech12345-code/Ca/actions/workflows/android-debug-apk.yml`
+- **Latest GitHub Release**: `https://github.com/tech12345-code/Ca/releases/latest`
+- **Direct APK Download URL**: `https://github.com/tech12345-code/Ca/releases/latest/download/SmartExpenseManager-debug.apk`
