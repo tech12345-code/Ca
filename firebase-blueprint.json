@@ -1,0 +1,690 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User financial profile, opening balance, monthly budget, UPI payout handle, and notification preferences.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "appUserCode": {
+          "type": "string",
+          "maxLength": 32
+        },
+        "upiId": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "upiVerified": {
+          "type": "boolean"
+        },
+        "openingBalance": {
+          "type": "number"
+        },
+        "monthlyBudget": {
+          "type": "number"
+        },
+        "currencySymbol": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8
+        },
+        "setupCompleted": {
+          "type": "boolean"
+        },
+        "notifExpenseReminders": {
+          "type": "boolean"
+        },
+        "notifReminderHour": {
+          "type": "integer"
+        },
+        "notifReminderMinute": {
+          "type": "integer"
+        },
+        "notifTransactionConfirmations": {
+          "type": "boolean"
+        },
+        "notifBudgetAlerts": {
+          "type": "boolean"
+        },
+        "notifDailySummary": {
+          "type": "boolean"
+        },
+        "notifWeeklyReport": {
+          "type": "boolean"
+        },
+        "notifCloudBackup": {
+          "type": "boolean"
+        },
+        "quietHoursEnabled": {
+          "type": "boolean"
+        },
+        "quietStartHour": {
+          "type": "integer"
+        },
+        "quietEndHour": {
+          "type": "integer"
+        },
+        "lastBackupAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "uid",
+        "displayName",
+        "openingBalance",
+        "monthlyBudget",
+        "currencySymbol",
+        "setupCompleted",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "UserDirectory": {
+      "title": "UserDirectory",
+      "description": "Non-PII directory allowing signed-in users to look up friends by Smart Expense Manager User ID without exposing email or phone numbers.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "appUserCode": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 32
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "upiId": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "upiVerified": {
+          "type": "boolean"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "appUserCode", "displayName", "upiId", "upiVerified", "updatedAt"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Income or expense ledger entry belonging to a specific user.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["EXPENSE", "INCOME"]
+        },
+        "amount": {
+          "type": "number"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "merchant": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "Food",
+            "Travel",
+            "Groceries",
+            "Shopping",
+            "Education",
+            "Bills",
+            "Entertainment",
+            "Health",
+            "Other",
+            "Income"
+          ]
+        },
+        "customCategoryDetail": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "paymentMethod": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "sourceOfMoney": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "note": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "transactionDate": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10
+        },
+        "transactionTime": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 8
+        },
+        "timestampMillis": {
+          "type": "integer"
+        },
+        "referenceId": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "invoiceNumber": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "entrySource": {
+          "type": "string",
+          "enum": ["MANUAL", "RECEIPT_OCR", "UPI_CONFIRMED", "CLOUD_RESTORE"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "uid",
+        "type",
+        "amount",
+        "description",
+        "category",
+        "transactionDate",
+        "transactionTime",
+        "timestampMillis",
+        "entrySource",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "UpiConnection": {
+      "title": "UpiConnection",
+      "description": "User-authorized UPI app connection configuration and integration mode.",
+      "type": "object",
+      "properties": {
+        "appId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "appName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "packageName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "connected": {
+          "type": "boolean"
+        },
+        "connectionMode": {
+          "type": "string",
+          "enum": ["SHARE_AND_OCR", "NOTIFICATION_ASSISTED", "INTENT_HANDOFF", "NOT_CONNECTED"]
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["appId", "uid", "appName", "packageName", "connected", "connectionMode", "updatedAt"]
+    },
+    "FcmTokenRecord": {
+      "title": "FcmTokenRecord",
+      "description": "Registered Firebase Cloud Messaging token associated with an authenticated user.",
+      "type": "object",
+      "properties": {
+        "tokenId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "token": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 512
+        },
+        "platform": {
+          "type": "string",
+          "enum": ["android", "web"]
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["tokenId", "uid", "token", "platform", "updatedAt"]
+    },
+    "AlertHistoryRecord": {
+      "title": "AlertHistoryRecord",
+      "description": "Deduplication record for budget threshold and scheduled push notifications.",
+      "type": "object",
+      "properties": {
+        "alertKey": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "monthKey": {
+          "type": "string",
+          "minLength": 7,
+          "maxLength": 7
+        },
+        "thresholdPercent": {
+          "type": "integer"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["alertKey", "uid", "monthKey", "thresholdPercent", "createdAt"]
+    },
+    "Group": {
+      "title": "Group",
+      "description": "Private roommate, friend, family, or trip expense-sharing group.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "groupType": {
+          "type": "string",
+          "enum": ["Roommates", "Friends", "Family", "Trip Group", "Custom Group"]
+        },
+        "iconKey": { "type": "string", "maxLength": 32 },
+        "joinCode": { "type": "string", "minLength": 4, "maxLength": 32 },
+        "creatorUid": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "creatorName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "memberUids": { "type": "array", "items": { "type": "string" } },
+        "settlementDueDate": { "type": "string", "maxLength": 10 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "id",
+        "name",
+        "groupType",
+        "iconKey",
+        "joinCode",
+        "creatorUid",
+        "creatorName",
+        "memberUids",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "GroupMember": {
+      "title": "GroupMember",
+      "description": "Group membership record linking a user to a group with role and UPI payout metadata.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "groupId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "memberUids": { "type": "array", "items": { "type": "string" } },
+        "displayName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "appUserCode": { "type": "string", "maxLength": 32 },
+        "role": { "type": "string", "enum": ["ADMIN", "MEMBER"] },
+        "status": { "type": "string", "enum": ["ACTIVE", "LEFT"] },
+        "upiId": { "type": "string", "maxLength": 100 },
+        "upiVerified": { "type": "boolean" },
+        "joinedAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "id",
+        "groupId",
+        "uid",
+        "memberUids",
+        "displayName",
+        "role",
+        "status",
+        "joinedAt",
+        "updatedAt"
+      ]
+    },
+    "GroupJoinCode": {
+      "title": "GroupJoinCode",
+      "description": "Exact-key group join lookup code mapping GRP-XXXXXX to group metadata.",
+      "type": "object",
+      "properties": {
+        "joinCode": { "type": "string", "minLength": 4, "maxLength": 32 },
+        "groupId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "groupName": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "groupType": {
+          "type": "string",
+          "enum": ["Roommates", "Friends", "Family", "Trip Group", "Custom Group"]
+        },
+        "creatorUid": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "creatorName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "active": { "type": "boolean" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["joinCode", "groupId", "groupName", "groupType", "creatorUid", "creatorName", "active", "updatedAt"]
+    },
+    "GroupInvitation": {
+      "title": "GroupInvitation",
+      "description": "Group invitation sent via App ID, Email, SMS, WhatsApp, or In-App.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "groupId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "groupName": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "groupType": {
+          "type": "string",
+          "enum": ["Roommates", "Friends", "Family", "Trip Group", "Custom Group"]
+        },
+        "inviterUid": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "inviterName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "inviteMethod": {
+          "type": "string",
+          "enum": ["APP_ID", "EMAIL", "SMS", "WHATSAPP", "IN_APP"]
+        },
+        "targetUid": { "type": "string", "maxLength": 128 },
+        "targetAppCode": { "type": "string", "maxLength": 32 },
+        "targetEmail": { "type": "string", "maxLength": 200 },
+        "targetPhoneMasked": { "type": "string", "maxLength": 32 },
+        "inviteToken": { "type": "string", "minLength": 4, "maxLength": 64 },
+        "status": {
+          "type": "string",
+          "enum": ["PENDING", "ACCEPTED", "REJECTED", "CANCELLED"]
+        },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "id",
+        "groupId",
+        "groupName",
+        "groupType",
+        "inviterUid",
+        "inviterName",
+        "inviteMethod",
+        "inviteToken",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "GroupExpense": {
+      "title": "GroupExpense",
+      "description": "Shared group expense with payer, split mode, and per-member share map.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "groupId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "memberUids": { "type": "array", "items": { "type": "string" } },
+        "paidByUid": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "paidByName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "amount": { "type": "number" },
+        "description": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "category": { "type": "string" },
+        "customCategoryDetail": { "type": "string", "maxLength": 120 },
+        "transactionDate": { "type": "string", "minLength": 10, "maxLength": 10 },
+        "transactionTime": { "type": "string", "minLength": 5, "maxLength": 8 },
+        "timestampMillis": { "type": "integer" },
+        "splitType": {
+          "type": "string",
+          "enum": ["EQUAL", "CUSTOM_AMOUNT", "PERCENTAGE", "SHARES"]
+        },
+        "participantUids": { "type": "array", "items": { "type": "string" } },
+        "shares": { "type": "object" },
+        "receiptReference": { "type": "string", "maxLength": 120 },
+        "note": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "id",
+        "groupId",
+        "memberUids",
+        "paidByUid",
+        "paidByName",
+        "amount",
+        "description",
+        "category",
+        "transactionDate",
+        "transactionTime",
+        "timestampMillis",
+        "splitType",
+        "participantUids",
+        "shares",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Settlement": {
+      "title": "Settlement",
+      "description": "Two-party group settlement with UPI/QR payment verification and idempotency.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "groupId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "groupName": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "memberUids": { "type": "array", "items": { "type": "string" } },
+        "payerUid": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "payerName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "receiverUid": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "receiverName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "receiverUpiId": { "type": "string", "maxLength": 100 },
+        "amount": { "type": "number" },
+        "dueDate": { "type": "string", "maxLength": 10 },
+        "reminderEnabled": { "type": "boolean" },
+        "status": {
+          "type": "string",
+          "enum": [
+            "PENDING",
+            "PAYMENT_INITIATED",
+            "AWAITING_CONFIRMATION",
+            "COMPLETED",
+            "REJECTED",
+            "FAILED"
+          ]
+        },
+        "paymentMethod": { "type": "string", "enum": ["UPI", "QR", "MANUAL"] },
+        "paymentApp": { "type": "string", "maxLength": 64 },
+        "paymentReference": { "type": "string", "maxLength": 120 },
+        "idempotencyKey": { "type": "string", "minLength": 4, "maxLength": 128 },
+        "payerConfirmedAtMillis": { "type": ["integer", "null"] },
+        "receiverConfirmedAtMillis": { "type": ["integer", "null"] },
+        "note": { "type": "string", "maxLength": 300 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "id",
+        "groupId",
+        "groupName",
+        "memberUids",
+        "payerUid",
+        "payerName",
+        "receiverUid",
+        "receiverName",
+        "amount",
+        "status",
+        "paymentMethod",
+        "idempotencyKey",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "PaymentRequest": {
+      "title": "PaymentRequest",
+      "description": "UPI / Dynamic QR payment request generated for a group settlement.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "groupId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "settlementId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "memberUids": { "type": "array", "items": { "type": "string" } },
+        "requesterUid": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "requesterName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "requesterUpiId": { "type": "string", "maxLength": 100 },
+        "payerUid": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "payerName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "amount": { "type": "number" },
+        "description": { "type": "string", "maxLength": 200 },
+        "upiUri": { "type": "string", "maxLength": 500 },
+        "transactionRef": { "type": "string", "maxLength": 64 },
+        "dueDate": { "type": "string", "maxLength": 10 },
+        "status": {
+          "type": "string",
+          "enum": [
+            "PENDING",
+            "PAYMENT_INITIATED",
+            "AWAITING_CONFIRMATION",
+            "COMPLETED",
+            "REJECTED",
+            "FAILED"
+          ]
+        },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "id",
+        "groupId",
+        "settlementId",
+        "memberUids",
+        "requesterUid",
+        "requesterName",
+        "payerUid",
+        "payerName",
+        "amount",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Private user profile, opening balance, monthly budget, and notification preferences."
+    },
+    "/userDirectory/{userId}": {
+      "schema": { "$ref": "#/entities/UserDirectory" },
+      "description": "Non-PII lookup directory for Smart Expense Manager User IDs and verified UPI IDs."
+    },
+    "/users/{userId}/transactions/{transactionId}": {
+      "schema": { "$ref": "#/entities/Transaction" },
+      "description": "User-isolated expense and income transactions."
+    },
+    "/users/{userId}/upiConnections/{appId}": {
+      "schema": { "$ref": "#/entities/UpiConnection" },
+      "description": "User-authorized UPI app integration preferences."
+    },
+    "/users/{userId}/fcmTokens/{tokenId}": {
+      "schema": { "$ref": "#/entities/FcmTokenRecord" },
+      "description": "Authenticated user FCM device tokens."
+    },
+    "/users/{userId}/alertHistory/{alertKey}": {
+      "schema": { "$ref": "#/entities/AlertHistoryRecord" },
+      "description": "Monthly budget threshold deduplication log."
+    },
+    "/groups/{groupId}": {
+      "schema": { "$ref": "#/entities/Group" },
+      "description": "Shared expense group metadata."
+    },
+    "/groupMembers/{memberDocId}": {
+      "schema": { "$ref": "#/entities/GroupMember" },
+      "description": "Group member records keyed by groupId_uid."
+    },
+    "/groupJoinCodes/{joinCode}": {
+      "schema": { "$ref": "#/entities/GroupJoinCode" },
+      "description": "Exact-match group join codes."
+    },
+    "/invitations/{invitationId}": {
+      "schema": { "$ref": "#/entities/GroupInvitation" },
+      "description": "Group invitations restricted to inviter and intended recipient."
+    },
+    "/groupExpenses/{expenseId}": {
+      "schema": { "$ref": "#/entities/GroupExpense" },
+      "description": "Shared group expenses readable only by accepted group members."
+    },
+    "/settlements/{settlementId}": {
+      "schema": { "$ref": "#/entities/Settlement" },
+      "description": "Group settlement transactions with dual-party verification state machine."
+    },
+    "/paymentRequests/{requestId}": {
+      "schema": { "$ref": "#/entities/PaymentRequest" },
+      "description": "UPI and QR payment requests linked to group settlements."
+    }
+  }
+}

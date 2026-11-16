@@ -1,0 +1,6 @@
+{
+  "name": "Smart Expense Manager",
+  "description": "Production-grade Android Kotlin & Jetpack Compose expense manager with Room offline storage, chronological balance recalculation, ML Kit receipt OCR, Firebase Auth/Firestore sync, FCM push notifications, PDF statements, and live interactive companion.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

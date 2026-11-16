@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Smart Expense Manager</string>
+    <string name="default_web_client_id" translatable="false">68128444479-36kvvtmsc3v1de7lp0eug4an7ap258bd.apps.googleusercontent.com</string>
+</resources>
